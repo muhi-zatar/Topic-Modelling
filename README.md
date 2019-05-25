@@ -1,6 +1,29 @@
 # Topic-Modelling
 In this repository, the data preprocessing stage, applying LDA and creating word embeddings word2vec are presented and detailed. 
+# Word2Vec implementation for word representation
 
+For most languages, there are pre-trained word embeddings that are ready to be installed and used directly. However, in this section an implementation for Word2vec (https://towardsdatascience.com/introduction-to-word-embedding-and-word2vec-652d0c2060fa) using Gensim (https://radimrehurek.com/gensim/models/word2vec.html) is driven.
+```python
+from gensim.models import Word2Vec
+w2v_model = Word2Vec(min_count=20,
+                     window=2,
+                     size=300,
+                     sample=6e-5, 
+                     alpha=0.03, 
+                     min_alpha=0.0007, 
+                     negative=20,
+                     workers=cores-1)
+```
+where min_count represents the frequency of the word in the corpus to be included, window is the size of the window of the skipgram model. Needless to say that the monolingual corpus is required to go through a preprocessing stage similar to the one that is presented later in this repoitory. 
+
+```python
+#training the model
+w2v_model.build_vocab(sentences, progress_per=10000)
+w2v_model.train(sentences, epochs=30, report_delay=1)
+
+#testing the model on some words
+w2v_model.wv.most_similar(positive=["politics"])
+```
 # Data Preprocessing
 
 After retrieving the Data from the database, it is mandatory to preprocess the data in order to apply Machine Learning techniques on it.
