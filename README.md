@@ -21,7 +21,7 @@ where min_count represents the frequency of the word in the corpus to be include
 w2v_model.build_vocab(sentences, progress_per=10000)
 w2v_model.train(sentences, epochs=30, report_delay=1)
 
-#testing the model on some words
+#testing the model on some words by calculating the most similar words to the word politics.
 w2v_model.wv.most_similar(positive=["politics"])
 ```
 # Data Preprocessing
